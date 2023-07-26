@@ -1,0 +1,843 @@
+Prompt:
+
+import pygame #Importa la biblioteca pygame, que proporciona funcionalidades para crear videojuegos y aplicaciones multimedia.
+import pygame_menu #Importa la biblioteca pygame_menu, que proporciona funcionalidades para crear menús en pygame.
+from main import Main
+
+fondo_menu = pygame.image.load('Assets/Imagenes/Background/Fondo_Menu.jpg')
+fondo_menu = pygame.transform.scale(fondo_menu,(1000,600))
+pygame.init() #Inicializa todos los módulos de pygame importados.
+surface = pygame.display.set_mode((1000, 600)) #Crea una ventana de 883x498 píxeles.
+pygame.display.set_caption("Martial Mayhem")
+
+def StartGame():
+    Main()
+
+def InfoGame():
+    submenu = pygame_menu.Menu('Información del juego', 1000, 600,
+                                theme=pygame_menu.themes.THEME_BLUE) #Crea un submenú con el título "Información del juego" y con un tamaño de 600x300 píxeles.
+    submenu.add.button('Introducción', IntrodutionGame) #Crea un botón para ir a la función IntrodutionGame
+    submenu.add.button('Mecánicas', MechanicsGame) #Crea un botón para ir a la función MechanicsGame
+    submenu.add.button('Personajes', PlayersGame) #Crea un botón para ir a la función PlayersGame
+    submenu.add.button('Créditos', CreditsGame) #Crea un botón para ir a la función CreditsGame
+    submenu.add.button('Derechos de autor', LinksGame) #Crea un botón para ir a la función LinksGame
+    submenu.add.button('Volver al menú principal', menu) #Crea un botón para ir a la función menu
+    submenu.mainloop(surface) #Muestra el submenú
+
+def IntrodutionGame():
+    submenu = pygame_menu.Menu('Introducción', 1000, 600,
+                                theme=pygame_menu.themes.THEME_BLUE) #Crea un submenú con el título "Introducción" y con un tamaño de 883x497 píxeles.
+    
+    #Texto que se mostrará en la pantalla.
+    Intro = '''        
+        Título: Martial mayhem
+        Concepto principal: El juego consiste en dos luchadores peleando entre sí en un escenario, en donde cada uno constará de ciertas habilidades que les servirán para ganar.
+        Género: Arcade.
+        Propósito: Este juego está creado como parte del proyecto final de la asignatura de computación gráfica para la Universidad Tecnológica de Pereira, y está dirigido principalmente para los estudiantes de la materia y el profesor. Si es posible publicar el juego en github o en alguna plataforma similar lo haremos.
+        Jugabilidad: El objetivo del juego se basa en pelear hasta que a alguno de los jugadores no les quede vida y por ende mueran, para lograr esto tendrán ciertas armas y habilidades que son exclusivas del personaje, y no se podrán recoger elementos extra en el juego.
+        Estilo visual: El juego tendrá un entorno en 2D en donde los personajes podrán saltar y golpear, y en donde se tendrá de fondo un escenario. Este juego se basa en el estilo visual de juegos como street fighter o king of fighter; en otras palabras juegos para consolas antiguas como los son la game boy o el nintendo 64.
+        Plataforma: El juego se realizará en el entorno de python, utilizando la librería gráfica de pygame. Y no se tiene planeado que el juego sea lanzado a ninguna plataforma de juegos actual.'''
+        
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()  # Copiar el tema existente
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT  # Alinear el texto a la izquierda
+
+    submenu._theme = custom_theme  # Establecer el tema personalizado
+    submenu.add.label(Intro) #Muestra el texto en la pantalla
+    submenu.add.button('Volver', InfoGame) #Crea un botón para volver al submenú
+    submenu.mainloop(surface) #Retorna al submenú
+
+def MechanicsGame():
+    submenu = pygame_menu.Menu('Mecánicas del juego', 1000, 600,
+                                theme=pygame_menu.themes.THEME_BLUE) #Crea un submenú con el título "Mecánicas del juego" y con un tamaño de 883x497 píxeles.
+    
+    #Texto que se mostrará en la pantalla.
+    Mechanics = '''
+        Tipo de cámara: El juego utilizará una cámara estática en 2D.
+        Controles: 
+
+        Jugador 1:
+
+        Flecha arriba: Saltar
+        Flecha derecha: Moverse a la derecha
+        Flecha izquierda: Moverse a la izquierda
+        Ctrl derecho: Atacar
+
+
+        Jugador 2:
+
+        w: Saltar
+        a: Moverse a la derecha
+        d: Moverse a la izquierda
+        Ctrl izquierdo: Atacar
+
+        Puntuación: El juego no tendrá una puntuación, sin embargo constará con una barra de vida, la cual al llegar a 0 determinará el ganador y el perdedor.
+        Niveles: Tampoco contará con niveles, el juego tendrá un escenario único, con una única temática.
+        Habilidades: Los personajes no tendrán habilidades especiales dentro del juego, estos contarán con armas propias de cada uno de su personaje (ya sea una espada, o algún otro de tipo arma, la cual dependerá del personaje que se escoja).
+        '''
+        
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()  # Copiar el tema existente
+    custom_theme.font = 'Segoe UI Font'
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT  # Alinear el texto a la izquierda
+
+    submenu._theme = custom_theme  # Establecer el tema personalizado
+    submenu.add.label(Mechanics) #Muestra el texto en la pantalla
+    submenu.add.button('Volver', InfoGame) #Crea un botón para volver al submenú
+    submenu.mainloop(surface) #Retorna al submenú
+
+def PlayersGame():
+    submenu = pygame_menu.Menu('Personajes', 1000, 600,
+                                theme=pygame_menu.themes.THEME_BLUE) #Crea un submenú con el título "Personajes" y con un tamaño de 883x497 píxeles.
+    
+    #Texto que se mostrará en la pantalla.
+    Players = '''
+        Azazel: Es un hechicero que porta una varita mágica, parece un anciano que no puede moverse, pero su apariencia te puede engañar. Es alguien muy hábil y con unos poderes mágicos sorprendentes, de los cuales no te voy a hacer spoiler.
+        Yakuza: Es un samurai proveniente de Japón, es un muy hábil espadachín, que carga con varias bajas en su haber, sin duda será un contendiente muy difícil de vencer.
+        '''
+        
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()  # Copiar el tema existente
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT  # Alinear el texto a la izquierda
+
+    submenu._theme = custom_theme  # Establecer el tema personalizado
+    submenu.add.label(Players) #Muestra el texto en la pantalla
+    submenu.add.button('Volver', InfoGame) #Crea un botón para volver al submenú
+    submenu.mainloop(surface) #Retorna al submenú
+
+def CreditsGame():
+    submenu = pygame_menu.Menu('Créditos', 1000, 600,
+                                theme=pygame_menu.themes.THEME_BLUE) #Crea un submenú con el título "Créditos" y con un tamaño de 883x497 píxeles.
+    
+    #Texto que se mostrará en la pantalla.
+    Credits = '''
+        Oscar Julián Cárdenas
+        Nicolás Orozco Flórez
+    
+        Universidad Tecnológica de Pereira
+        Computación Gráfica
+        2023-1
+        '''
+    
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()  # Copiar el tema existente
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT  # Alinear el texto a la izquierda
+    
+    submenu._theme = custom_theme  # Establecer el tema personalizado
+    submenu.add.label(Credits) #Muestra el texto en la pantalla
+    submenu.add.button('Volver', InfoGame) #Crea un botón para volver al submenú
+    submenu.mainloop(surface) #Retorna al submenú
+
+def LinksGame():
+    submenu = pygame_menu.Menu('Derechos de autor', 1000, 600,
+                                theme=pygame_menu.themes.THEME_BLUE) #Crea un submenú con el título "Derechos de autor" y con un tamaño de 883x497 píxeles.
+    
+    #Texto que se mostrará en la pantalla.
+    Links = '''
+    Escenarios:
+        https://opengameart.org/content/backgrounds-3
+        https://opengameart.org/content/background-6
+        
+    Personajes:
+        https://luizmelo.itch.io/wizard-pack
+        https://luizmelo.itch.io/martial-hero-2
+        
+    Sonidos:
+        https://freesound.org/people/mrrap4food/sounds/493918/
+        https://freesound.org/people/Herkules92/sounds/547600/
+        https://freesound.org/people/qubodup/sounds/442872/
+        '''
+    
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()  # Copiar el tema existente
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT  # Alinear el texto a la izquierda
+    
+    submenu._theme = custom_theme  # Establecer el tema personalizado
+    submenu.add.label(Links) #Muestra el texto en la pantalla
+    submenu.add.button('Volver', InfoGame) #Crea un botón para volver al submenú
+    submenu.mainloop(surface) #Retorna al submenú
+
+def draw_background():
+    surface.blit(fondo_menu, (0, 0))
+
+menu = pygame_menu.Menu('Bienvenido', 1000, 600,
+                        theme=pygame_menu.themes.THEME_BLUE) #Crea un menú con el título "Bienvenido" y con un tamaño de 600x300 píxeles.
+
+menu.add.button('Fight', StartGame) #Crea un botón para iniciar el juego
+menu.add.button('A cerca de', InfoGame) #Crea un botón para ir al submenú de "A cerca de"
+menu.add.button('Quit', pygame_menu.events.EXIT) #Crea un botón para salir del juego
+
+
+running = True
+while running:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            running = False
+
+    surface.fill((0, 0, 0))
+    menu.update(events)
+    menu.draw(surface)
+    draw_background()
+    pygame.display.flip()
+
+pygame.quit()
+
+cómo puedo mostrar el fondo nuevamente al devolverme de 'InfoGame'
+
+----------------------------------------------- Respuesta:-------------------------------------------------------------
+
+Para mostrar el fondo nuevamente al volver desde la función 'InfoGame', puedes hacer uso de una variable global para controlar el estado del menú. Aquí tienes una versión modificada del código que logra este comportamiento:
+
+```python
+import pygame
+import pygame_menu
+from main import Main
+
+fondo_menu = pygame.image.load('Assets/Imagenes/Background/Fondo_Menu.jpg')
+fondo_menu = pygame.transform.scale(fondo_menu, (1000, 600))
+pygame.init()
+surface = pygame.display.set_mode((1000, 600))
+pygame.display.set_caption("Martial Mayhem")
+
+def StartGame():
+    Main()
+
+def InfoGame():
+    global show_background  # Variable global para controlar el estado del fondo
+    show_background = False  # Oculta el fondo mientras se muestra el submenú
+
+    submenu = pygame_menu.Menu('Información del juego', 1000, 600,
+                               theme=pygame_menu.themes.THEME_BLUE)
+    submenu.add.button('Introducción', IntrodutionGame)
+    submenu.add.button('Mecánicas', MechanicsGame)
+    submenu.add.button('Personajes', PlayersGame)
+    submenu.add.button('Créditos', CreditsGame)
+    submenu.add.button('Derechos de autor', LinksGame)
+    submenu.add.button('Volver al menú principal', menu)
+    submenu.mainloop(surface)
+
+def IntrodutionGame():
+    global show_background  # Variable global para controlar el estado del fondo
+    show_background = False
+
+    submenu = pygame_menu.Menu('Introducción', 1000, 600,
+                               theme=pygame_menu.themes.THEME_BLUE)
+
+    Intro = '''
+        Título: Martial mayhem
+        Concepto principal: El juego consiste en dos luchadores peleando entre sí en un escenario, en donde cada uno constará de ciertas habilidades que les servirán para ganar.
+        Género: Arcade.
+        Propósito: Este juego está creado como parte del proyecto final de la asignatura de computación gráfica para la Universidad Tecnológica de Pereira, y está dirigido principalmente para los estudiantes de la materia y el profesor. Si es posible publicar el juego en github o en alguna plataforma similar lo haremos.
+        Jugabilidad: El objetivo del juego se basa en pelear hasta que a alguno de los jugadores no les quede vida y por ende mueran, para lograr esto tendrán ciertas armas y habilidades que son exclusivas del personaje, y no se podrán recoger elementos extra en el juego.
+        Estilo visual: El juego tendrá un entorno en 2D en donde los personajes podrán saltar y golpear, y en donde se tendrá de fondo un escenario. Este juego se basa en el estilo visual de juegos como street fighter o king of fighter; en otras palabras juegos para consolas antiguas como los son la game boy o el nintendo 64.
+        Plataforma: El juego se realizará en el entorno de python, utilizando la librería gráfica de pygame. Y no se tiene planeado que el juego sea lanzado a ninguna plataforma de juegos actual.'''
+
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+
+    submenu._theme = custom_theme
+    submenu.add.label(Intro)
+    submenu.add.button('Volver', InfoGame)
+    submenu.mainloop(surface)
+
+def MechanicsGame():
+    global show_background  # Variable global para controlar el estado del fondo
+    show_background = False
+
+    submenu = pygame_menu.Menu('Mecánicas del juego
+
+', 1000, 600,
+                               theme=pygame_menu.themes.THEME_BLUE)
+
+    Mechanics = '''
+        Tipo de cámara: El juego utilizará una cámara estática en 2D.
+        Controles:
+
+        Jugador 1:
+
+        Flecha arriba: Saltar
+        Flecha derecha: Moverse a la derecha
+        Flecha izquierda: Moverse a la izquierda
+        Ctrl derecho: Atacar
+
+
+        Jugador 2:
+
+        w: Saltar
+        a: Moverse a la derecha
+        d: Moverse a la izquierda
+        Ctrl izquierdo: Atacar
+
+        Puntuación: El juego no tendrá una puntuación, sin embargo constará con una barra de vida, la cual al llegar a 0 determinará el ganador y el perdedor.
+        Niveles: Tampoco contará con niveles, el juego tendrá un escenario único, con una única temática.
+        Habilidades: Los personajes no tendrán habilidades especiales dentro del juego, estos contarán con armas propias de cada uno de su personaje (ya sea una espada, o algún otro de tipo arma, la cual dependerá del personaje que se escoja).
+        '''
+
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()
+    custom_theme.font = 'Segoe UI Font'
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+
+    submenu._theme = custom_theme
+    submenu.add.label(Mechanics)
+    submenu.add.button('Volver', InfoGame)
+    submenu.mainloop(surface)
+
+def PlayersGame():
+    global show_background  # Variable global para controlar el estado del fondo
+    show_background = False
+
+    submenu = pygame_menu.Menu('Personajes', 1000, 600,
+                               theme=pygame_menu.themes.THEME_BLUE)
+
+    Players = '''
+        Azazel: Es un hechicero que porta una varita mágica, parece un anciano que no puede moverse, pero su apariencia te puede engañar. Es alguien muy hábil y con unos poderes mágicos sorprendentes, de los cuales no te voy a hacer spoiler.
+        Yakuza: Es un samurai proveniente de Japón, es un muy hábil espadachín, que carga con varias bajas en su haber, sin duda será un contendiente muy difícil de vencer.
+        '''
+
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+
+    submenu._theme = custom_theme
+    submenu.add.label(Players)
+    submenu.add.button('Volver', InfoGame)
+    submenu.mainloop(surface)
+
+def CreditsGame():
+    global show_background  # Variable global para controlar el estado del fondo
+    show_background = False
+
+    submenu = pygame_menu.Menu('Créditos', 1000, 600,
+                               theme=pygame_menu.themes.THEME_BLUE)
+
+    Credits = '''
+        Oscar Julián Cárdenas
+        Nicolás Orozco Flórez
+
+        Universidad Tecnológica de Pereira
+        Computación Gráfica
+        2023-1
+        '''
+
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+
+    submenu._theme = custom_theme
+    submenu.add.label(Credits)
+    submenu.add.button('Volver', InfoGame)
+    submenu.mainloop(surface)
+
+def LinksGame():
+    global show_background  # Variable global para controlar el estado del fondo
+    show_background = False
+
+    submenu = pygame
+
+_menu.Menu('Derechos de autor', 1000, 600,
+                               theme=pygame_menu.themes.THEME_BLUE)
+
+    Links = '''
+    Escenarios:
+        https://opengameart.org/content/backgrounds-3
+        https://opengameart.org/content/background-6
+
+    Personajes:
+        https://luizmelo.itch.io/wizard-pack
+        https://luizmelo.itch.io/martial-hero-2
+
+    Sonidos:
+        https://freesound.org/people/mrrap4food/sounds/493918/
+        https://freesound.org/people/Herkules92/sounds/547600/
+        https://freesound.org/people/qubodup/sounds/442872/
+        '''
+
+    custom_theme = pygame_menu.themes.THEME_BLUE.copy()
+    custom_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+
+    submenu._theme = custom_theme
+    submenu.add.label(Links)
+    submenu.add.button('Volver', InfoGame)
+    submenu.mainloop(surface)
+
+def draw_background():
+    if show_background:  # Verificar si se debe mostrar el fondo
+        surface.blit(fondo_menu, (0, 0))
+
+menu = pygame_menu.Menu('Bienvenido', 1000, 600,
+                        theme=pygame_menu.themes.THEME_BLUE)
+
+menu.add.button('Fight', StartGame)
+menu.add.button('A cerca de', InfoGame)
+menu.add.button('Quit', pygame_menu.events.EXIT)
+
+running = True
+show_background = True  # Variable para controlar el estado del fondo
+
+while running:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            running = False
+
+    surface.fill((0, 0, 0))
+    menu.update(events)
+    menu.draw(surface)
+    draw_background()
+    pygame.display.flip()
+
+pygame.quit()
+
+---------------------------------------------------------Prompt:-----------------------------------------------------
+como puedo incorporar la imagen al fondo?
+
+-------------------------------------------------------Respuesta:---------------------------------------------------
+Para incorporar la imagen de fondo a la ventana, puedes usar el método `blit()` de la superficie (`surface`) para dibujar la imagen en la posición deseada. Aquí hay una versión modificada de tu código que agrega la imagen de fondo:
+
+```python
+import pygame
+import pygame_menu
+
+pygame.init()
+surface = pygame.display.set_mode((883, 497))
+pygame.display.set_caption("Martial Mayhem")
+
+# Cargar la imagen de fondo
+fondo_menu = pygame.image.load('Fondo_Menu.jpg')
+
+def StartGame():
+    # Realizar las acciones del juego aquí
+    pass
+
+def InfoGame():
+    # Crear el submenú y realizar las acciones correspondientes
+    pass
+
+def draw_background():
+    # Dibujar la imagen de fondo en la superficie
+    surface.blit(fondo_menu, (0, 0))
+
+menu = pygame_menu.Menu('Bienvenido', 883, 497, theme=pygame_menu.themes.THEME_BLUE)
+menu.add.button('Fight', StartGame)
+menu.add.button('A cerca de', InfoGame)
+menu.add.button('Quit', pygame_menu.events.EXIT)
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    surface.fill((0, 0, 0))
+    draw_background()  # Dibujar la imagen de fondo
+    menu.update(pygame.event.get())
+    menu.draw(surface)
+    pygame.display.flip()
+
+pygame.quit()
+```
+
+En este código, la función `draw_background()` utiliza el método `blit()` para dibujar la imagen `fondo_menu` en la posición `(0, 0)` de la superficie `surface`. Luego, se llama a `draw_background()` en el bucle principal para dibujar la imagen de fondo antes de dibujar el menú.
+
+Asegúrate de que la imagen de fondo (`Fondo_Menu.jpg`) esté en la ubicación correcta y sea accesible para que se pueda cargar correctamente.
+
+Si tienes más preguntas, no dudes en hacerlas.
+
+----------------------------------------------------------Prompt:-----------------------------------------------------
+puedes documentarme este código por favor?
+
+--------------------------------------------------------Respuesta:----------------------------------------------------
+El código proporcionado es un programa en Python que utiliza la biblioteca Pygame y Pygame_menu para crear un menú interactivo para un videojuego llamado "Martial Mayhem". A continuación, se proporciona una descripción detallada del código:
+
+1. Importación de bibliotecas:
+   - `pygame`: Es una biblioteca que proporciona funcionalidades para crear videojuegos y aplicaciones multimedia en Python.
+   - `pygame_menu`: Es una extensión de Pygame que permite crear menús interactivos en Pygame.
+   - `from main import Main`: Importa la función `Main` desde el archivo `main.py`, que parece contener la lógica principal del juego.
+
+2. Definición de la función `Principal`:
+   - `pygame.init()`: Inicializa todos los módulos de Pygame importados.
+   - `Surface = pygame.display.set_mode((1000, 600))`: Crea una ventana de visualización con un tamaño de 1000x600 píxeles.
+   - `pygame.display.set_caption("Martial Mayhem")`: Establece el título de la ventana del juego como "Martial Mayhem".
+
+3. Carga y escalado de la imagen de fondo del menú:
+   - `Fondo_Menu = pygame.image.load('Assets/Imagenes/Background/Fondo_Menu.jpg')`: Carga la imagen de fondo del menú desde el archivo "Fondo_Menu.jpg" en la carpeta "Assets/Imagenes/Background".
+   - `Fondo_Menu = pygame.transform.scale(Fondo_Menu, (1000, 600))`: Escala la imagen de fondo del menú al tamaño de la ventana de visualización.
+
+4. Definición de funciones para el menú:
+   - `StartGame()`: Esta función ejecuta el juego principal llamando a la función `Main()` importada del archivo `main.py`.
+   - `InfoGame()`: Esta función muestra un submenú con información sobre el juego, como introducción, mecánicas, personajes, créditos y derechos de autor.
+   - `IntrodutionGame()`: Esta función muestra un submenú con la introducción del juego y otra información relacionada.
+   - `MechanicsGame()`: Esta función muestra un submenú con las mecánicas del juego, incluyendo el tipo de cámara, los controles, la puntuación, los niveles y las habilidades.
+   - `PlayersGame()`: Esta función muestra un submenú con información sobre los personajes del juego, incluyendo sus descripciones.
+   - `CreditsGame()`: Esta función muestra un submenú con los créditos del juego, incluyendo los nombres de los creadores y la información de la universidad y el curso.
+   - `LinksGame()`: Esta función muestra un submenú con enlaces a los recursos utilizados en el juego, como los escenarios, los personajes y los sonidos.
+
+5. Definición de la función `Draw_Background()`:
+   - Esta función dibuja el fondo del menú en la ventana de visualización utilizando la imagen cargada y escalada en el paso anterior.
+
+6. Creación del menú principal:
+   - `Menu = pygame_menu.Menu('Bienvenido', 1000, 600, theme=pygame_menu.themes.THEME_BLUE)`: Crea un menú principal con el título "Bienvenido" y un tamaño de 1000x600 píxeles. Se utiliza el tema predefinido "THEME_BLUE" para el menú.
+
+7. Agregar elementos al.
+
+----------------------------------------------------------Prompt:-------------------------------------------------------
+import pygame
+
+
+class Fighter:
+    def __init__(self, Player, x, y, Flip, Data, Sprites, Animation_Steps, Sonido):
+        self.Player = Player
+        self.Size = Data[0]
+        self.Escala_Imagen = Data[1]
+        self.Offset = Data[2]
+        self.Flip = Flip
+        self.Lista_Animacion = self.Load_Images(Sprites, Animation_Steps)
+        self.Action = 0  # 0:idle #1:run #2:Jump #3:ataque1 #4: ataque2 #5:Hit #6:death
+        self.Frame_Index = 0
+        self.Imagen = self.Lista_Animacion[self.Action][self.Frame_Index]
+        self.Update_Time = pygame.time.get_ticks()
+        self.Back_Rect = pygame.Rect((x, y, 80, 180))
+        self.Vel_y = 0
+        self.Run = False
+        self.Jump = False
+        self.Attaking = False
+        self.Type_Attack = 0
+        self.Attack_Cooldown = 0
+        self.Sonido_Attack = Sonido
+        self.Hit = False
+        self.Health = 100
+        self.Alive = True
+
+    def Load_Images(self, Sprites, Animation_Steps):
+        Lista_Animacion = []
+        for y, Animation in enumerate(Animation_Steps):
+            Img_List = []
+            for x in range(Animation):
+                Temp_Img = Sprites.subsurface(
+                    x * self.Size, y * self.Size, self.Size, self.Size
+                )
+                Img_List.append(
+                    pygame.transform.scale(
+                        Temp_Img,
+                        (self.Size * self.Escala_Imagen, self.Size * self.Escala_Imagen),
+                    )
+                )
+            Lista_Animacion.append(Img_List)
+        return Lista_Animacion
+
+    def move(self, Ancho_Pantalla, Alto_Pantalla, Superficie, Target, Round_Over):
+        VEL = 10
+        GRAVITY = 2
+        dx = 0
+        dy = 0
+        self.Run = False
+        self.Type_Attack = 0
+
+        key = pygame.key.get_pressed()
+
+        if self.Attaking == False and self.Alive == True and Round_Over == False:
+            if self.Player == 1:
+                if key[pygame.K_a]:
+                    dx = -VEL
+                    self.Run = True
+                if key[pygame.K_d]:
+                    dx = VEL
+                    self.Run = True
+                if key[pygame.K_w] and self.Jump == False:
+                    self.Vel_y = -30
+                    self.Jump = True
+                if key[pygame.K_RCTRL] or key[pygame.K_m]:
+                    self.Attack(Target)
+                    if key[pygame.K_RCTRL]:
+                        self.Type_Attack = 1
+                    if key[pygame.K_m]:
+                        self.Type_Attack = 2
+
+            if self.Player == 2:
+                if key[pygame.K_LEFT]:
+                    dx = -VEL
+                    self.Run = True
+                if key[pygame.K_RIGHT]:
+                    dx = VEL
+                    self.Run = True
+                if key[pygame.K_UP] and self.Jump == False:
+                    self.Vel_y = -30
+                    self.Jump = True
+                if key[pygame.K_LCTRL] or key[pygame.K_z]:
+                    self.Attack(Target)
+                    if key[pygame.K_LCTRL]:
+                        self.Type_Attack = 1
+                    if key[pygame.K_z]:
+                        self.Type_Attack = 2
+
+        self.Vel_y += GRAVITY
+        dy += self.Vel_y
+
+        if self.Back_Rect.left + dx < 0:
+            dx = -self.Back_Rect.left
+        if self.Back_Rect.right + dx > Ancho_Pantalla:
+            dx = Ancho_Pantalla - self.Back_Rect.right
+        if self.Back_Rect.bottom + dy > Alto_Pantalla - 110:
+            self.Vel_y = 0
+            self.Jump = False
+            dy = Alto_Pantalla - 110 - self.Back_Rect.bottom
+
+        if Target.Back_Rect.centerx > self.Back_Rect.centerx:
+            self.Flip = False
+        else:
+            self.Flip = True
+
+        if self.Attack_Cooldown > 0:
+            self.Attack_Cooldown -= 1
+
+        self.Back_Rect.x += dx
+        self.Back_Rect.y += dy
+
+    def Update(self):
+        if self.Health <= 0:
+            self.Health = 0
+            self.Alive = False
+            self.Update_Action(6)  # 6:death
+        elif self.Hit == True:
+            self.Update_Action(5)  # 5:Hit
+        elif self.Attaking == True:
+            if self.Type_Attack == 1:
+                self.Update_Action(3)  # 3:attack1
+            elif self.Type_Attack == 2:
+                self.Update_Action(4)  # 4:attack2
+        elif self.Jump == True:
+            self.Update_Action(2)  # 2:Jump
+        elif self.Run == True:
+            self.Update_Action(1)  # 1:run
+        else:
+            self.Update_Action(0)  # 0:idle
+
+        Animation_Cooldown = 50
+        self.Imagen = self.Lista_Animacion[self.Action][self.Frame_Index]
+        if pygame.time.get_ticks() - self.Update_Time > Animation_Cooldown:
+            self.Frame_Index += 1
+            self.Update_Time = pygame.time.get_ticks()
+        if self.Frame_Index >= len(self.Lista_Animacion[self.Action]):
+            if self.Alive == False:
+                self.Frame_Index = len(self.Lista_Animacion[self.Action]) - 1
+            else:
+                self.Frame_Index = 0
+                if self.Action == 3 or self.Action == 4:
+                    self.Attaking = False
+                    self.Attack_Cooldown = 20
+                if self.Action == 5:
+                    self.Hit = False
+                    self.Attaking = False
+                    self.Attack_Cooldown = 20
+
+    def Attack(self, Target):
+        if self.Attack_Cooldown == 0:
+            self.Attaking = True
+            self.Sonido_Attack.play()
+            attacking_rect = pygame.Rect(
+                self.Back_Rect.centerx - (4 * self.Back_Rect.width * self.Flip),
+                self.Back_Rect.y,
+                2 * self.Back_Rect.width,
+                self.Back_Rect.height,
+            )
+            if attacking_rect.colliderect(Target.Back_Rect):
+                Target.Health -= 10
+                Target.Hit = True
+
+    def Update_Action(self, New_Action):
+        if New_Action != self.Action:
+            self.Action = New_Action
+            self.Frame_Index = 0
+            self.Update_Time = pygame.time.get_ticks()
+
+    def Draw(self, Superficie):
+        Img = pygame.transform.flip(self.Imagen, self.Flip, False)
+        Superficie.blit(
+            Img,
+            (
+                self.Back_Rect.x - (self.Offset[0] * self.Escala_Imagen),
+                self.Back_Rect.y - (self.Offset[1] * self.Escala_Imagen),
+            ),
+        )
+Necesito que documentes el codigo anterior en español
+
+------------------------------------------------------Respuesta:--------------------------------------------------------
+import pygame
+
+
+class Fighter:
+    def __init__(self, Player, x, y, Flip, Data, Sprites, Animation_Steps, Sonido):
+        # Constructor de la clase Fighter
+        self.Player = Player
+        self.Size = Data[0]
+        self.Escala_Imagen = Data[1]
+        self.Offset = Data[2]
+        self.Flip = Flip
+        self.Lista_Animacion = self.Load_Images(Sprites, Animation_Steps)
+        self.Action = 0  # 0:idle #1:run #2:Jump #3:ataque1 #4:ataque2 #5:Hit #6:death
+        self.Frame_Index = 0
+        self.Imagen = self.Lista_Animacion[self.Action][self.Frame_Index]
+        self.Update_Time = pygame.time.get_ticks()
+        self.Back_Rect = pygame.Rect((x, y, 80, 180))
+        self.Vel_y = 0
+        self.Run = False
+        self.Jump = False
+        self.Attaking = False
+        self.Type_Attack = 0
+        self.Attack_Cooldown = 0
+        self.Sonido_Attack = Sonido
+        self.Hit = False
+        self.Health = 100
+        self.Alive = True
+
+    def Load_Images(self, Sprites, Animation_Steps):
+        # Carga las imágenes para las animaciones del personaje
+        Lista_Animacion = []
+        for y, Animation in enumerate(Animation_Steps):
+            Img_List = []
+            for x in range(Animation):
+                Temp_Img = Sprites.subsurface(
+                    x * self.Size, y * self.Size, self.Size, self.Size
+                )
+                Img_List.append(
+                    pygame.transform.scale(
+                        Temp_Img,
+                        (self.Size * self.Escala_Imagen, self.Size * self.Escala_Imagen),
+                    )
+                )
+            Lista_Animacion.append(Img_List)
+        return Lista_Animacion
+
+    def move(self, Ancho_Pantalla, Alto_Pantalla, Superficie, Target, Round_Over):
+        # Actualiza la posición del personaje en función de las teclas presionadas
+        VEL = 10
+        GRAVITY = 2
+        dx = 0
+        dy = 0
+        self.Run = False
+        self.Type_Attack = 0
+
+        key = pygame.key.get_pressed()
+
+        if self.Attaking == False and self.Alive == True and Round_Over == False:
+            if self.Player == 1:
+                if key[pygame.K_a]:
+                    dx = -VEL
+                    self.Run = True
+                if key[pygame.K_d]:
+                    dx = VEL
+                    self.Run = True
+                if key[pygame.K_w] and self.Jump == False:
+                    self.Vel_y = -30
+                    self.Jump = True
+                if key[pygame.K_RCTRL] or key[pygame.K_m]:
+                    self.Attack(Target)
+                    if key[pygame.K_RCTRL]:
+                        self.Type_Attack = 1
+                    if key[pygame.K_m]:
+                        self.Type_Attack = 2
+
+            if self.Player == 2:
+                if key[pygame.K_LEFT]:
+                    dx = -VEL
+                    self.Run = True
+                if key[pygame.K_RIGHT]:
+                    dx = VEL
+                    self.Run = True
+                if key[pygame.K_UP] and self.Jump == False:
+                    self.Vel_y = -30
+                    self.Jump = True
+                if key[pygame.K_LCTRL] or key[pygame.K_z]:
+                    self.Attack(Target)
+                    if key[pygame.K_LCTRL]:
+                        self.Type_Attack = 1
+                    if key[pygame.K_z]:
+                        self.Type_Attack = 2
+
+        self.Vel_y += GRAVITY
+        dy += self.Vel_y
+
+        if self.Back_Rect.left + dx < 0:
+            dx = -self.Back_Rect.left
+        if self.Back_Rect.right + dx > Ancho_Pantalla:
+            dx = Ancho_Pantalla - self.Back_Rect.right
+        if self.Back_Rect.bottom + dy > Alto_Pantalla - 110:
+            self.Vel_y = 0
+            self.Jump = False
+            dy = Alto_Pantalla - 110 - self.Back_Rect.bottom
+
+        if Target.Back_Rect.centerx > self.Back_Rect.centerx:
+            self.Flip = False
+        else:
+            self.Flip = True
+
+        if self.Attack_Cooldown > 0:
+            self.Attack_Cooldown -= 1
+
+        self.Back_Rect.x += dx
+        self.Back_Rect.y += dy
+
+    def Update(self):
+        # Actualiza la animación del personaje
+        if self.Health <= 0:
+            self.Health = 0
+            self.Alive = False
+            self.Update_Action(6)  # 6:death
+        elif self.Hit == True:
+            self.Update_Action(5)  # 5:Hit
+        elif self.Attaking == True:
+            if self.Type_Attack == 1:
+                self.Update_Action(3)  # 3:attack1
+            elif self.Type_Attack == 2:
+                self.Update_Action(4)  # 4:attack2
+        elif self.Jump == True:
+            self.Update_Action(2)  # 2:Jump
+        elif self.Run == True:
+            self.Update_Action(1)  # 1:run
+        else:
+            self.Update_Action(0)  # 0:idle
+
+        Animation_Cooldown = 50
+        self.Imagen = self.Lista_Animacion[self.Action][self.Frame_Index]
+        if pygame.time.get_ticks() - self.Update_Time > Animation_Cooldown:
+            self.Frame_Index += 1
+            self.Update_Time = pygame.time.get_ticks()
+        if self.Frame_Index >= len(self.Lista_Animacion[self.Action]):
+            if self.Alive == False:
+                self.Frame_Index = len(self.Lista_Animacion[self.Action]) - 1
+            else:
+                self.Frame_Index = 0
+                if self.Action == 3 or self.Action == 4:
+                    self.Attaking = False
+                    self.Attack_Cooldown = 20
+                if self.Action == 5:
+                    self.Hit = False
+                    self.Attaking = False
+                    self.Attack_Cooldown = 20
+
+    def Attack(self, Target):
+        # Realiza un ataque al objetivo si el cooldown de ataque está en 0
+        if self.Attack_Cooldown == 0:
+            self.Attaking = True
+            self.Sonido_Attack.play()
+            attacking_rect = pygame.Rect(
+                self.Back_Rect.centerx - (4 * self.Back_Rect.width * self.Flip),
+                self.Back_Rect.y,
+                2 * self.Back_Rect.width,
+                self.Back_Rect.height,
+            )
+            if attacking_rect.colliderect(Target.Back_Rect):
+                Target.Health -= 10
+                Target.Hit = True
+
+    def Update_Action(self, New_Action):
+        # Actualiza la acción del personaje
+        if New_Action != self.Action:
+            self.Action = New_Action
+            self.Frame_Index = 0
+            self.Update_Time = pygame.time.get_ticks()
+
+    def Draw(self, Superficie):
+        # Dibuja al personaje en la superficie
+        Img = pygame.transform.flip(self.Imagen, self.Flip, False)
+        Superficie.blit(
+            Img,
+            (
+                self.Back_Rect.x - (self.Offset[0] * self.Escala_Imagen),
+                self.Back_Rect.y - (self.Offset[1] * self.Escala_Imagen),
+            ),
+        )
